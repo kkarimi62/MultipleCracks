@@ -4,10 +4,11 @@ format short e
 global  n_c C S_xx S_yy S_xy Sigma_xx Sigma_yy Sigma_xy n_grid u_x u_y U V ....
          X Y force_ratio eps sig_e  t position stress x_cod_up ....
         y_cod_up x_cod_down y_cod_down out_iter_max inner_iter_max recomb_L
-        
-global str_dir;
-formatSpec = '%s/png';
-str_dir = sprintf(formatSpec,png_dir)
+
+keyboard;
+%global str_dir;
+%formatSpec = '%s/png';
+%str_dir = sprintf(formatSpec,png_dir)
 
 control_data()
 % initial()
