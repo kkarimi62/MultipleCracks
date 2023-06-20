@@ -11,10 +11,10 @@ def makeOAR( EXEC_DIR, node, core, time ):
         elif execc == 'py':
             print >> someFile, "python3 %s %s\n"%(script, var)
         elif execc == 'm':
-#             print >> someFile, 'exec=%s\n'%SCRPT_DIR
+            print >> someFile, 'exec=%s\n'%SCRPT_DIR
             print >> someFile, 'matlab_script=%s\n'%script
             print >> someFile, 'mkdir png'
-            print >> someFile, "matlab -nodisplay -r \"try, run('./${matlab_script}'), catch e, disp(getReport(e)), exit(1), end, exit(0);\"\n"
+            print >> someFile, "matlab -nodisplay -r \"try, run('${exec}/${matlab_script}'), catch e, disp(getReport(e)), exit(1), end, exit(0);\"\n"
             print >> someFile,"echo \"matlab exit code: $?\"\n"
     someFile.close()
 
