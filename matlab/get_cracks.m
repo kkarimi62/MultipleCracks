@@ -7,7 +7,7 @@ a1 = 500;
 a2 = 1000;
 R_c1=[5000 5000 0];
 R_c2=[15000 15000 0];
-rng(0,'twister');
+%rng(0,'twister'); %seed
 phi1=0;
 phi2=pi;
 for i=1:n_c
