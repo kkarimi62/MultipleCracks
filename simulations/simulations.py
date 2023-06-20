@@ -1,25 +1,21 @@
 def makeOAR( EXEC_DIR, node, core, time ):
-	someFile = open( 'oarScript.sh', 'w' )
-	print >> someFile, '#!/bin/bash\n'
-	print >> someFile, 'EXEC_DIR=%s\n' %( EXEC_DIR )
-#	print >> someFile, 'MEAM_library_DIR=%s\n' %( MEAM_library_DIR )
-#	print >> someFile, 'source ~/Project/opt/deepmd-kit/bin/activate ~/Project/opt/deepmd-kit\nexport OMP_NUM_THREADS=%s'%(nThreads*nNode) #--- deep potential stuff
-	print >> someFile, 'module load matlab/r2017b\n'
+    someFile = open( 'oarScript.sh', 'w' )
+    print >> someFile, '#!/bin/bash\n'
+    print >> someFile, 'EXEC_DIR=%s\n' %( EXEC_DIR )
+    print >> someFile, 'module load matlab/r2017b\n'
 
-	#--- run python script 
-#	 print >> someFile, "$EXEC_DIR/%s < in.txt -var OUT_PATH %s -var MEAM_library_DIR %s"%( EXEC, OUT_PATH, MEAM_library_DIR )
-#	cutoff = 1.0 / rho ** (1.0/3.0)
-	for script,var,indx, execc in zip(Pipeline,Variables,range(100),EXEC):
-		if execc == 'lmp': #_mpi' or EXEC == 'lmp_serial':
-			print >> someFile, "mpirun --oversubscribe -np %s $EXEC_DIR/%s < %s -echo screen -var OUT_PATH \'%s\' -var PathEam %s -var INC \'%s\' %s\n"%(nThreads*nNode, EXEC_lmp, script, OUT_PATH, '${MEAM_library_DIR}', SCRPT_DIR, var)
-		elif execc == 'm':
-			print >> someFile, "python3 %s %s\n"%(script, var)
-		elif execc == 'matlab':
+    #--- run python script 
+    for script,var,indx, execc in zip(Pipeline,Variables,range(100),EXEC):
+        if execc == 'lmp': #_mpi' or EXEC == 'lmp_serial':
+            print >> someFile, "mpirun --oversubscribe -np %s $EXEC_DIR/%s < %s -echo screen -var OUT_PATH \'%s\' -var PathEam %s -var INC \'%s\' %s\n"%(nThreads*nNode, EXEC_lmp, script, OUT_PATH, '${MEAM_library_DIR}', SCRPT_DIR, var)
+        elif execc == 'm':
+            print >> someFile, "python3 %s %s\n"%(script, var)
+        elif execc == 'matlab':
             print >> someFile, 'exec=%s\n'%SCRPT_DIR
             print >> someFile, 'matlab_script=%s\n'%script
-            print >> someFile, "matlab -nodisplay -r \"try, run('${exec}/${matlab_script}'), catch e, disp(getReport(e)), exit(1), end, exit(0);\""
-            print >> someFile,"echo \"matlab exit code: $?\""
-	someFile.close()										  
+            print >> someFile, "matlab -nodisplay -r \"try, run('${exec}/${matlab_script}'), catch e, disp(getReport(e)), exit(1), end, exit(0);\"\n"
+            print >> someFile,"echo \"matlab exit code: $?\"\n"
+    someFile.close()
 
 
 if __name__ == '__main__':
