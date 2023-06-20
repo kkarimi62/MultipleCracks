@@ -60,12 +60,12 @@ if __name__ == '__main__':
     def SetVariables():
         Variable = {
                 0:' -var natoms 100000 -var cutoff 3.52 -var ParseData 0 -var ntype 3 -var DumpFile dumpInit.xyz -var WriteData data_init.txt',
-                 1.0:' %s'%SCRPT_DIR,
+                 1.0:' ',
                 } 
         return Variable
     #--- different scripts in a pipeline
     indices = {
-                0:[1.0], #--- minimize, add H, minimize,kart input, kart.sh to bash shell ,invoke kart
+                0:[1j], #--- minimize, add H, minimize,kart input, kart.sh to bash shell ,invoke kart
               }[ 0 ]
     Pipeline = list(map(lambda x:LmpScript[x],indices))
 #	Variables = list(map(lambda x:Variable[x], indices))
