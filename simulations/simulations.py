@@ -16,7 +16,7 @@ def makeOAR( EXEC_DIR, node, core, time ):
 			print >> someFile, "python3 %s %s\n"%(script, var)
 		elif execc == 'kmc':
 #			print >> someFile, "time mpiexec %s %s\n"%(script, var)
-			print >> someFile, "source -x INC=\'%s\' %s %s\n"%(SCRPT_DIR,var,script)
+			print >> someFile, "./%s %s\n"%(script,var)
 			
 	someFile.close()										  
 
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     def SetVariables():
         Variable = {
                 0:' -var natoms 100000 -var cutoff 3.52 -var ParseData 0 -var ntype 3 -var DumpFile dumpInit.xyz -var WriteData data_init.txt',
-                 1.0:' ',
+                 1.0:' %s'%SCRPT_DIR,
                 } 
         return Variable
     #--- different scripts in a pipeline

@@ -1,5 +1,7 @@
 #!/bin/bash
-exec=${INC}
+exec=$1
+echo $exec
+
 module load matlab/r2017b
 
 matlab_script=Multi_Cracks_23_6_11_8
