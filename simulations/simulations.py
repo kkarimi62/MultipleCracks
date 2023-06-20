@@ -1,4 +1,4 @@
-def makeOAR( EXEC_DIR, node, core, time ):
+def makeOAR( EXEC_DIR, node, core, time, writPath ):
     someFile = open( 'oarScript.sh', 'w' )
     print >> someFile, '#!/bin/bash\n'
     print >> someFile, 'EXEC_DIR=%s\n' %( EXEC_DIR )
@@ -13,8 +13,8 @@ def makeOAR( EXEC_DIR, node, core, time ):
         elif execc == 'm':
             print >> someFile, 'exec=%s\n'%SCRPT_DIR
             print >> someFile, 'matlab_script=%s\n'%script
-            print >> someFile, 'mkdir png'
-            print >> someFile, "matlab -nodisplay -r \"try, run('${exec}/${matlab_script}'), catch e, disp(getReport(e)), exit(1), end, exit(0);\"\n"
+            print >> someFile, 'mkdir png\ncurrent_dir=%s'%writPath
+            print >> someFile, "matlab -nodisplay -r \"try, run('png_dir=${current_dir};${exec}/${matlab_script}'), catch e, disp(getReport(e)), exit(1), end, exit(0);\"\n"
             print >> someFile,"echo \"matlab exit code: $?\"\n"
     someFile.close()
 
@@ -100,7 +100,7 @@ if __name__ == '__main__':
             for sf in sourceFiles:
                 os.system( 'cp %s/Run%s/%s %s' %(sourcePath, irun, sf, writPath) ) #--- lammps script: periodic x, pxx, vy, load
         #---
-        makeOAR( path, 1, nThreads, durtn) # --- make oar script
+        makeOAR( path, 1, nThreads, durtn, writPath) # --- make oar script
         os.system( 'chmod +x oarScript.sh; mv oarScript.sh %s' % ( writPath) ) # --- create folder & mv oar scrip & cp executable
         jobname0 = jobname.split('/')[0] #--- remove slash
         os.system( 'sbatch --partition=%s --mem=%s --time=%s --job-name %s.%s --output %s.%s.out --error %s.%s.err \
