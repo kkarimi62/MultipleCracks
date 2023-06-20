@@ -60,7 +60,7 @@ if __name__ == '__main__':
     def SetVariables():
         Variable = {
                 0:' -var natoms 100000 -var cutoff 3.52 -var ParseData 0 -var ntype 3 -var DumpFile dumpInit.xyz -var WriteData data_init.txt',
-                 1.0:' ',
+                 1j:' ',
                 } 
         return Variable
     #--- different scripts in a pipeline
@@ -68,7 +68,6 @@ if __name__ == '__main__':
                 0:[1j], #--- minimize, add H, minimize,kart input, kart.sh to bash shell ,invoke kart
               }[ 0 ]
     Pipeline = list(map(lambda x:LmpScript[x],indices))
-#	Variables = list(map(lambda x:Variable[x], indices))
     EXEC = list(map(lambda x:np.array(['lmp','py','kmc','m'])[[ type(x) == type(0), type(x) == type(''), type(x) == type(1.0), type(x) == type(1j)]][0], indices))	
 #        print('EXEC=',EXEC)
     #
