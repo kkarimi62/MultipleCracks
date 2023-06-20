@@ -103,6 +103,7 @@ figure(3)
     hold off
     legend('\sigma_{xy}')
 
+    keyboard;
 
 % disp_scale=10;
 % U=disp_scale*U;
