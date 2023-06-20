@@ -2,9 +2,9 @@ def makeOAR( EXEC_DIR, node, core, time ):
 	someFile = open( 'oarScript.sh', 'w' )
 	print >> someFile, '#!/bin/bash\n'
 	print >> someFile, 'EXEC_DIR=%s\n' %( EXEC_DIR )
-	print >> someFile, 'MEAM_library_DIR=%s\n' %( MEAM_library_DIR )
+#	print >> someFile, 'MEAM_library_DIR=%s\n' %( MEAM_library_DIR )
 #	print >> someFile, 'source ~/Project/opt/deepmd-kit/bin/activate ~/Project/opt/deepmd-kit\nexport OMP_NUM_THREADS=%s'%(nThreads*nNode) #--- deep potential stuff
-	print >> someFile, 'module load openmpi/4.0.2-gnu730\nmodule load lib/openblas/0.3.13-gnu\n'
+	print >> someFile, 'module load matlab/r2017b\n'
 
 	#--- run python script 
 #	 print >> someFile, "$EXEC_DIR/%s < in.txt -var OUT_PATH %s -var MEAM_library_DIR %s"%( EXEC, OUT_PATH, MEAM_library_DIR )
@@ -12,12 +12,13 @@ def makeOAR( EXEC_DIR, node, core, time ):
 	for script,var,indx, execc in zip(Pipeline,Variables,range(100),EXEC):
 		if execc == 'lmp': #_mpi' or EXEC == 'lmp_serial':
 			print >> someFile, "mpirun --oversubscribe -np %s $EXEC_DIR/%s < %s -echo screen -var OUT_PATH \'%s\' -var PathEam %s -var INC \'%s\' %s\n"%(nThreads*nNode, EXEC_lmp, script, OUT_PATH, '${MEAM_library_DIR}', SCRPT_DIR, var)
-		elif execc == 'py':
+		elif execc == 'm':
 			print >> someFile, "python3 %s %s\n"%(script, var)
-		elif execc == 'kmc':
-#			print >> someFile, "time mpiexec %s %s\n"%(script, var)
-			print >> someFile, "./%s %s\n"%(script,var)
-			
+		elif execc == 'matlab':
+            print >> someFile, 'exec=%s\n'%SCRPT_DIR
+            print >> someFile, 'matlab_script=%s\n'%script
+            print >> someFile, "matlab -nodisplay -r \"try, run('${exec}/${matlab_script}'), catch e, disp(getReport(e)), exit(1), end, exit(0);\""
+            print >> someFile,"echo \"matlab exit code: $?\""
 	someFile.close()										  
 
 
@@ -57,7 +58,7 @@ if __name__ == '__main__':
         OUT_PATH = '/scratch/${SLURM_JOB_ID}'
     #--- py script must have a key of type str!
     LmpScript = {   0:'in.PrepTemp0',
-                    1.0:'matlab.sh', #--- bash script
+                    1j:'Multi_Cracks_23_6_11_8', #--- bash script
                 } 
     #
     def SetVariables():
@@ -72,7 +73,7 @@ if __name__ == '__main__':
               }[ 0 ]
     Pipeline = list(map(lambda x:LmpScript[x],indices))
 #	Variables = list(map(lambda x:Variable[x], indices))
-    EXEC = list(map(lambda x:np.array(['lmp','py','kmc'])[[ type(x) == type(0), type(x) == type(''), type(x) == type(1.0) ]][0], indices))	
+    EXEC = list(map(lambda x:np.array(['lmp','py','kmc','m'])[[ type(x) == type(0), type(x) == type(''), type(x) == type(1.0), type(x) == type(1j)]][0], indices))	
 #        print('EXEC=',EXEC)
     #
     EXEC_lmp = ['lmp_mpi','lmp_serial','_lmp'][0]
