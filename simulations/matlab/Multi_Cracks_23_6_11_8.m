@@ -5,7 +5,8 @@ global  n_c C S_xx S_yy S_xy Sigma_xx Sigma_yy Sigma_xy n_grid u_x u_y U V ....
          X Y force_ratio eps sig_e  t position stress x_cod_up ....
         y_cod_up x_cod_down y_cod_down out_iter_max inner_iter_max recomb_L
 
-keyboard;
+%keyboard;
+%fileName = ['.' filesep '.dir.txt']; 
 %global str_dir;
 %formatSpec = '%s/png';
 %str_dir = sprintf(formatSpec,png_dir)
@@ -62,7 +63,7 @@ for i_q=1:n_c
                  end
             convergence=force_ratio(i_q)
             plot_forces(i_q);
-%            plot_COD(i_q);
+            plot_COD(i_q);
 
     end
 
@@ -79,7 +80,7 @@ end
 end
 
 
-% plot_barriers();
+ plot_barriers();
 
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%Stress Field %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -116,5 +117,5 @@ for i_p=1:n_c
     end
 end
             
-%  plot_field(Sigma_xx,Sigma_yy,Sigma_xy,U,V)
+  plot_field(Sigma_xx,Sigma_yy,Sigma_xy,U,V)
  

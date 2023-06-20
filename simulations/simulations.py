@@ -1,4 +1,4 @@
-def makeOAR( EXEC_DIR, node, core, time, writPath ):
+def makeOAR( EXEC_DIR, node, core, time ):
     someFile = open( 'oarScript.sh', 'w' )
     print >> someFile, '#!/bin/bash\n'
     print >> someFile, 'EXEC_DIR=%s\n' %( EXEC_DIR )
@@ -14,9 +14,9 @@ def makeOAR( EXEC_DIR, node, core, time, writPath ):
             print >> someFile, 'exec=%s\n'%SCRPT_DIR
             print >> someFile, 'matlab_script=%s\n'%script
             print >> someFile, 'mkdir png\n'
-            with open('.dir.txt','w') as fp:
-                print >> fp, '%s'%writPath
-            print >> someFile, "matlab -nodisplay -r \"try, run('png_dir=${current_dir};${exec}/${matlab_script}'), catch e, disp(getReport(e)), exit(1), end, exit(0);\"\n"
+#             with open('.dir.txt','w') as fp:
+#                 print >> fp, '%s'%writPath
+            print >> someFile, "matlab -nodisplay -r \"try, run('${matlab_script}'), catch e, disp(getReport(e)), exit(1), end, exit(0);\"\n"
             print >> someFile,"echo \"matlab exit code: $?\"\n"
     someFile.close()
 
@@ -97,12 +97,13 @@ if __name__ == '__main__':
         #---
         for script,indx in zip(Pipeline,range(100)):
 #			os.system( 'cp %s/%s %s/lmpScript%s.txt' %( SCRPT_DIR, script, writPath, indx) ) #--- lammps script: periodic x, pxx, vy, load
-            os.system( 'ln -s %s/%s %s' %( SCRPT_DIR, script, writPath) ) #--- lammps script: periodic x, pxx, vy, load
+#            os.system( 'ln -s %s/%s %s' %( SCRPT_DIR, script, writPath) ) #--- lammps script: periodic x, pxx, vy, load
+            os.system( 'ln -s %s/* %s' %( SCRPT_DIR, writPath) ) #--- lammps script: periodic x, pxx, vy, load
         if sourceFiles: 
             for sf in sourceFiles:
                 os.system( 'cp %s/Run%s/%s %s' %(sourcePath, irun, sf, writPath) ) #--- lammps script: periodic x, pxx, vy, load
         #---
-        makeOAR( path, 1, nThreads, durtn, writPath) # --- make oar script
+        makeOAR( path, 1, nThreads, durtn) # --- make oar script
         os.system( 'chmod +x oarScript.sh; mv .dir.txt oarScript.sh %s' % ( writPath) ) # --- create folder & mv oar scrip & cp executable
         jobname0 = jobname.split('/')[0] #--- remove slash
         os.system( 'sbatch --partition=%s --mem=%s --time=%s --job-name %s.%s --output %s.%s.out --error %s.%s.err \
