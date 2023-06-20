@@ -11,10 +11,7 @@ ylabel('Climb Force','FontSize',fsize,'FontName', 'Times New Roman')
 set(gca,'fontsize',fsize,'fontname','Times New Roman')
 grid on
 % hold on
-
-formatSpec = '%s/forces.png';
-str_dir = sprintf(formatSpec,str_dir)
-saveas(gcf,str_dir)
+saveas(gcf,'png/forces.png')
 
  end
 
