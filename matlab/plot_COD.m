@@ -38,5 +38,6 @@ grid on
 xlim([0 limit]); ylim([0 limit])
 hold on
 
+saveas(gcf,'png/cod.png')
 
  end
