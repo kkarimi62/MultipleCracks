@@ -104,7 +104,7 @@ if __name__ == '__main__':
                 os.system( 'cp %s/Run%s/%s %s' %(sourcePath, irun, sf, writPath) ) #--- lammps script: periodic x, pxx, vy, load
         #---
         makeOAR( path, 1, nThreads, durtn) # --- make oar script
-        os.system( 'chmod +x oarScript.sh; mv .dir.txt oarScript.sh %s' % ( writPath) ) # --- create folder & mv oar scrip & cp executable
+        os.system( 'chmod +x oarScript.sh; mv oarScript.sh %s' % ( writPath) ) # --- create folder & mv oar scrip & cp executable
         jobname0 = jobname.split('/')[0] #--- remove slash
         os.system( 'sbatch --partition=%s --mem=%s --time=%s --job-name %s.%s --output %s.%s.out --error %s.%s.err \
                         --chdir %s -c %s -n %s %s/oarScript.sh >> jobID.txt'\
