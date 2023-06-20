@@ -50,6 +50,7 @@ figure(1)
 
     hold off
     legend('\sigma_{xx}')
+    saveas(gcf,'sigmaxx.png')
 
 figure(2)
     contourf(X,Y,S_yy/sig_amp,zlevs);
@@ -76,6 +77,7 @@ figure(2)
 
     hold off
     legend('\sigma_{yy}')
+    saveas(gcf,'sigmayy.png')
 
 figure(3)
     contourf(X,Y,S_xy/sig_amp,zlevs);
@@ -102,8 +104,9 @@ figure(3)
 
     hold off
     legend('\sigma_{xy}')
+    
+    saveas(gcf,'sigmaxy.png')
 
-    keyboard;
 
 % disp_scale=10;
 % U=disp_scale*U;
