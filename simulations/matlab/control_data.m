@@ -3,7 +3,7 @@ function control_data()
 global n_c n_grid del_grid eps sig_amp n_d_min out_iter_max...
     inner_iter_max n_steps sig_e recomb_L 
 
-n_c=10; %30;
+n_c=2; %30;
 n_d_min=2;
 eps=1e-3;
 out_iter_max=1;

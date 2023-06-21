@@ -31,7 +31,7 @@ if __name__ == '__main__':
     nNode	 = 1
     #
     jobname  = {
-                0:'cracks', #'hydrogenFree',
+                0:'cracks2nd', #'hydrogenFree',
                }[0]
     sourcePath = os.getcwd() +\
                 {	
