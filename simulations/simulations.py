@@ -49,7 +49,7 @@ if __name__ == '__main__':
     #
     MEAM_library_DIR='/home/kamran.karimi1/Project/git/lammps2nd/lammps/potentials'
     #
-    SCRPT_DIR = os.getcwd()+'/matlab/latest23_6_17_10_disk' 
+    SCRPT_DIR = os.getcwd()+'/matlab/latest/23_6_17_10_disk' 
     #
     SCRATCH = None
     OUT_PATH = '.'
@@ -99,9 +99,7 @@ if __name__ == '__main__':
         os.system( 'mkdir -p %s' % ( writPath ) ) # --- create folder
         #---
         for script,indx in zip(Pipeline,range(100)):
-#			os.system( 'cp %s/%s %s/lmpScript%s.txt' %( SCRPT_DIR, script, writPath, indx) ) #--- lammps script: periodic x, pxx, vy, load
-#            os.system( 'ln -s %s/%s %s' %( SCRPT_DIR, script, writPath) ) #--- lammps script: periodic x, pxx, vy, load
-            os.system( 'ln -s %s/* %s' %( SCRPT_DIR, writPath) ) #--- lammps script: periodic x, pxx, vy, load
+            os.system( 'ln -s %s/* %s' %( SCRPT_DIR, writPath) ) #--- matlab script
         if sourceFiles: 
             for sf in sourceFiles:
                 os.system( 'cp %s/Run%s/%s %s' %(sourcePath, irun, sf, writPath) ) #--- lammps script: periodic x, pxx, vy, load
