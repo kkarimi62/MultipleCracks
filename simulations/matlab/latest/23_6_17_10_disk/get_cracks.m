@@ -18,7 +18,8 @@ global C n_c n_b r_b c_bx c_by X_intercept Y_intercept C_C_left C_C_right...
     r_b2=0;
     c_b1=[100 100 0];
     c_b2=[18000 18000 0];
-    rng(0,'twister');
+%    rng(0,'twister');
+    s=rng('shuffle')
 C(1).a=a_crack;
 C(1).R_c=[0 0 0];
 C(1).phi=pi/2;
