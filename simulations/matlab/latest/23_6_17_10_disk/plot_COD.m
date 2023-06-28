@@ -55,4 +55,7 @@ hold on
 
 plot(X_intercept(i,:),Y_intercept(i,:),'b.','LineWidth',1)
 
+saveas(gcf,'png/cod.png')
+
+
  end

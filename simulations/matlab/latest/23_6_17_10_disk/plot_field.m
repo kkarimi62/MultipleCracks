@@ -68,6 +68,7 @@ hold on
     hold off
         legend('\sigma_{xx} [MPa]','location','northoutside')
 
+    saveas(gcf,'png/sigmaxx.png')
 
 
 figure(2)
@@ -87,6 +88,7 @@ hold on
         end
     hold off
     legend('\sigma_{yy} [MPa]','location','northoutside')
+    saveas(gcf,'png/sigmayy.png')
 
 
 
@@ -107,6 +109,7 @@ hold on
         end
     hold off
      legend('\sigma_{xy} [MPa]','location','northoutside')
+    saveas(gcf,'png/sigmaxy.png')
 
 
 % disp_scale=10;
