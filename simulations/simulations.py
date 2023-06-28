@@ -31,7 +31,7 @@ if __name__ == '__main__':
     nNode	 = 1
     #
     jobname  = {
-                0:'cracks2nd', #'hydrogenFree',
+                0:'disk', #'hydrogenFree',
                }[0]
     sourcePath = os.getcwd() +\
                 {	
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     #
     MEAM_library_DIR='/home/kamran.karimi1/Project/git/lammps2nd/lammps/potentials'
     #
-    SCRPT_DIR = os.getcwd()+'/matlab' 
+    SCRPT_DIR = os.getcwd()+'/matlab/latest23_6_17_10_disk' 
     #
     SCRATCH = None
     OUT_PATH = '.'
@@ -57,25 +57,28 @@ if __name__ == '__main__':
         OUT_PATH = '/scratch/${SLURM_JOB_ID}'
     #--- py script must have a key of type str!
     LmpScript = {   0:'in.PrepTemp0',
-                    1j:'Multi_Cracks_23_6_11_8.m', #--- bash script
+                    1j:'Multi_Cracks_23_6_11_8.m', #--- matlab script
+                    2j:'Multi_Cracks_23_6_17_10.m',
                 } 
     #
     def SetVariables():
         Variable = {
                 0:' -var natoms 100000 -var cutoff 3.52 -var ParseData 0 -var ntype 3 -var DumpFile dumpInit.xyz -var WriteData data_init.txt',
                  1j:' ',
+                 2j:' ',
                 } 
         return Variable
     #--- different scripts in a pipeline
     indices = {
-                0:[1j], #--- minimize, add H, minimize,kart input, kart.sh to bash shell ,invoke kart
-              }[ 0 ]
+                0:[1j],
+                1:[2j],
+              }[ 1 ]
     Pipeline = list(map(lambda x:LmpScript[x],indices))
     EXEC = list(map(lambda x:np.array(['lmp','py','kmc','m'])[[ type(x) == type(0), type(x) == type(''), type(x) == type(1.0), type(x) == type(1j)]][0], indices))	
 #        print('EXEC=',EXEC)
     #
     EXEC_lmp = ['lmp_mpi','lmp_serial','_lmp'][0]
-    durtn = ['23:59:59','00:59:59','167:59:59'][ 2 ]
+    durtn = ['23:59:59','00:59:59','167:59:59'][ 1 ]
     mem = '8gb'
     partition = ['gpu-v100','parallel','cpu2019','single'][3]
     #--
