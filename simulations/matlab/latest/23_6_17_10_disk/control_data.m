@@ -5,7 +5,7 @@ global n_c n_grid del_grid eps sig_amp n_d_min iter_max...
 
 %%%%%%   GENERAL CONTROL KNOBS  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-n_c=2;                  %  Number of cracks
+n_c=10; %2;                  %  Number of cracks
 n_d_min=3;              % Number of dipoles in each crack
 eps=1e-3;               % Convergence criterion for PK forces
 n_steps=3;              % number of steps for a dislocation to reach its neighbor, the smaller the faster they move
