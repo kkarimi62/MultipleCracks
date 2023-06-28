@@ -20,22 +20,23 @@ global C n_c n_b r_b c_bx c_by X_intercept Y_intercept C_C_left C_C_right...
     c_b2=[18000 18000 0];
 %    rng(0,'twister');
     s=rng('shuffle')
-C(1).a=a_crack;
-C(1).R_c=[0 0 0];
-C(1).phi=pi/2;
-C(2).a=a_crack/2;
-C(2).R_c=[0.15*(D/(2*Length_unit)) (D/(3*Length_unit)) 0];
-C(2).phi=pi/4;
-C(3).a=500;
-C(3).R_c=[8000 13000 0];
-C(3).phi=2*pi/3;
+%kam
+%C(1).a=a_crack;
+%C(1).R_c=[0 0 0];
+%C(1).phi=pi/2;
+%C(2).a=a_crack/2;
+%C(2).R_c=[0.15*(D/(2*Length_unit)) (D/(3*Length_unit)) 0];
+%C(2).phi=pi/4;
+%C(3).a=500;
+%C(3).R_c=[8000 13000 0];
+%C(3).phi=2*pi/3;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%  CRACKS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%         for i=1:n_c
-%             C(i).a=(a2-a1).*rand(1,1) + a1;
-%             C(i).R_c=(R_c2-R_c1).*rand(1,1) + R_c1;
-%             C(i).phi=(phi2-phi1).*rand(1,1) + phi1;
-%         end
+         for i=1:n_c
+             C(i).a=(a2-a1).*rand(1,1) + a1;
+             C(i).R_c=(R_c2-R_c1).*rand(1,1) + R_c1;
+             C(i).phi=(phi2-phi1).*rand(1,1) + phi1;
+         end
 
     for i=1:n_c
         for j=1:n_c
