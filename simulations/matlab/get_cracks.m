@@ -11,11 +11,11 @@ R_c2=[15000 15000 0];
 s=rng('shuffle')
 phi1=0;
 phi2=pi;
-for i=1:n_c
-    C(i).a=(a2-a1).*rand(1,1) + a1;
-    C(i).R_c=(R_c2-R_c1).*rand(1,1) + R_c1;
-    C(i).phi=(phi2-phi1).*rand(1,1) + phi1;
-end
+%for i=1:n_c
+%    C(i).a=(a2-a1).*rand(1,1) + a1;
+%    C(i).R_c=(R_c2-R_c1).*rand(1,1) + R_c1;
+%    C(i).phi=(phi2-phi1).*rand(1,1) + phi1;
+%end
 
 
 n_b=200;
@@ -44,13 +44,13 @@ R_b2(2)=18000;
             theta_max(i,1)=theta_b+alpha;
             end
 
-
-% C(1).a=1000;
-% C(1).R_c=[10000 5000 0];
-% C(1).phi=0;
-% C(2).a=500;
-% C(2).phi=0;
-% C(2).R_c=[13000 5000 0];
+% only two cracks in a *notched* geometry
+C(1).a=1000;
+C(1).R_c=[10000 5000 0];
+C(1).phi=phi1;
+C(2).a=500;
+C(2).phi=phi2;
+C(2).R_c=[13000 5000 0];
 % C(3).a=1000;
 % C(3).phi=2*pi/3;
 % C(3).R_c=[15000 10000 0];
