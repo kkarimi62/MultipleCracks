@@ -18,7 +18,7 @@ phi2=pi;
 %end
 
 
-n_b=2000;
+n_b=200; % number of barriers
 R_min=zeros(n_b,1);
 R_max=zeros(n_b,1);
 theta_min=zeros(n_b,1);
