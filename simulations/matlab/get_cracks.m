@@ -3,8 +3,8 @@ global C n_c n_b R_min R_max theta_min ...
          theta_max barrier1 barrier2 barrier_rad
         
 %%%% PREPARE CRACK & BARRIER DATA  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-a1 = 500;
-a2 = 1000;
+a1 = 500; %length
+a2 = 500; %1000;
 R_c1=[5000 5000 0];
 R_c2=[15000 15000 0];
 %rng(0,'twister'); %seed
@@ -46,11 +46,11 @@ R_b2(2)=18000;
 
 % only two cracks in a *notched* geometry
 C(1).a=1000;
-C(1).R_c=[10000 5000 0];
+C(1).R_c=[0 1e4 0];
 C(1).phi=phi1;
-C(2).a=500;
+C(2).a=1000; %500;
 C(2).phi=phi2;
-C(2).R_c=[13000 5000 0];
+C(2).R_c=[2e4 1e4 0];
 % C(3).a=1000;
 % C(3).phi=2*pi/3;
 % C(3).R_c=[15000 10000 0];
