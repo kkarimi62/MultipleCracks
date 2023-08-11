@@ -25,24 +25,24 @@ theta_min=zeros(n_b,1);
 theta_max=zeros(n_b,1);
 r_b1=5000;
 r_b2=10000;
-R_b1(1)=100;
-R_b2(1)=18000;
-R_b1(2)=100;
-R_b2(2)=18000;
-            for i=1:n_b
-            r_b=(r_b2-r_b1).*rand(1,1) + r_b1 ;   
-            R_b(1)=(R_b2(1)-R_b1(1)).*rand(1,1) + R_b1(1);
-            R_b(2)=(R_b2(2)-R_b1(2)).*rand(1,1) + R_b1(2);
-            barrier1(i)=R_b(1);
-            barrier2(i)=R_b(2);
-            barrier_rad(i)=r_b;
-            R_min(i,1)=norm(R_b)-r_b;
-            R_max(i,1)=norm(R_b)+r_b;
-            alpha=asin(r_b/norm(R_b));
-            theta_b=atan2(R_b(2),R_b(1));
-            theta_min(i,1)=theta_b-alpha;
-            theta_max(i,1)=theta_b+alpha;
-            end
+R_b1(1)=0; %100;
+R_b2(1)=2e4; %18000;
+R_b1(2)=0; %100;
+R_b2(2)=2e4; %18000;
+for i=1:n_b
+r_b=(r_b2-r_b1).*rand(1,1) + r_b1 ;   
+R_b(1)=(R_b2(1)-R_b1(1)).*rand(1,1) + R_b1(1);
+R_b(2)=(R_b2(2)-R_b1(2)).*rand(1,1) + R_b1(2);
+barrier1(i)=R_b(1);
+barrier2(i)=R_b(2);
+barrier_rad(i)=r_b;
+R_min(i,1)=norm(R_b)-r_b;
+R_max(i,1)=norm(R_b)+r_b;
+alpha=asin(r_b/norm(R_b));
+theta_b=atan2(R_b(2),R_b(1));
+theta_min(i,1)=theta_b-alpha;
+theta_max(i,1)=theta_b+alpha;
+end
 
 % only two cracks in a *notched* geometry
 C(1).a=1000;
