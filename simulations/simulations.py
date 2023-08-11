@@ -31,7 +31,7 @@ if __name__ == '__main__':
     nNode	 = 1
     #
     jobname  = {
-                0:'disk_10cracks', #'hydrogenFree',
+                0:'modeOneNotch', #'hydrogenFree',
                }[0]
     sourcePath = os.getcwd() +\
                 {	
@@ -49,7 +49,9 @@ if __name__ == '__main__':
     #
     MEAM_library_DIR='/home/kamran.karimi1/Project/git/lammps2nd/lammps/potentials'
     #
-    SCRPT_DIR = os.getcwd()+'/matlab/latest/23_6_17_10_disk' 
+    SCRPT_DIR = os.getcwd()+{0:'/matlab/latest/23_6_17_10_disk',
+                             1:'/matlab',
+                            }[1]
     #
     SCRATCH = None
     OUT_PATH = '.'
@@ -72,7 +74,7 @@ if __name__ == '__main__':
     indices = {
                 0:[1j],
                 1:[2j],
-              }[ 1 ]
+              }[ 0 ]
     Pipeline = list(map(lambda x:LmpScript[x],indices))
     EXEC = list(map(lambda x:np.array(['lmp','py','kmc','m'])[[ type(x) == type(0), type(x) == type(''), type(x) == type(1.0), type(x) == type(1j)]][0], indices))	
 #        print('EXEC=',EXEC)
