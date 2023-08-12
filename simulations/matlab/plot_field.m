@@ -108,11 +108,12 @@ figure(3)
     saveas(gcf,'png/sigmaxy.png')
 
 figure(4)
+    nu = 1.0/3.0;
     sxx = S_xx/sig_amp;
     syy = S_yy/sig_amp;
     sxy = S_xy/sig_amp;
-    exx = (sxx-nu*syy);
-    eyy = (syy-nu*sxx);
+    exx = sxx;%(sxx-nu*syy);
+    eyy = syy;%(syy-nu*sxx);
     exy =  sxy;
     p   = 0.5*(exx+eyy);
     r2  = ((exx-eyy)*(exx-eyy)+4*exy*exy)*0.25;
