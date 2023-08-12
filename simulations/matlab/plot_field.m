@@ -12,8 +12,16 @@ color_scale1=-3;
 % zinc = (zmax - zmin) / 100;
 % zlevs = zmin:zinc:zmax;
 
+nu = 1.0/3.0;
+sxx = S_xx/sig_amp;
+syy = S_yy/sig_amp;
+sxy = S_xy/sig_amp;
+exx = (sxx-nu*syy);
+eyy = (syy-nu*sxx);
+exy =  sxy;
+
 figure(1)
-    contourf(X,Y,S_xx/sig_amp,zlevs);
+    contourf(X,Y,exx,zlevs);
     colormap(parula(256));
     colorbar;
     pbaspect([1 1 1]);
@@ -49,11 +57,11 @@ figure(1)
     end
 
     hold off
-    legend('\sigma_{xx}')
-    saveas(gcf,'png/sigmaxx.png')
+    legend('\epsilon_{xx}')
+    saveas(gcf,'png/exx.png')
 
 figure(2)
-    contourf(X,Y,S_yy/sig_amp,zlevs);
+    contourf(X,Y,eyy,zlevs);
     colormap(jet(256));
     colorbar;
     pbaspect([1 1 1]);
@@ -76,11 +84,11 @@ figure(2)
     end
 
     hold off
-    legend('\sigma_{yy}')
-    saveas(gcf,'png/sigmayy.png')
+    legend('\epsilon_{yy}')
+    saveas(gcf,'png/eyy.png')
 
 figure(3)
-    contourf(X,Y,S_xy/sig_amp,zlevs);
+    contourf(X,Y,exy,zlevs);
     colorbar;
     colormap(jet(256));
     pbaspect([1 1 1]);
@@ -103,18 +111,11 @@ figure(3)
     end
 
     hold off
-    legend('\sigma_{xy}')
+    legend('\epsilon_{xy}')
     
-    saveas(gcf,'png/sigmaxy.png')
+    saveas(gcf,'png/exy.png')
 
 figure(4)
-    nu = 1.0/3.0;
-    sxx = S_xx/sig_amp;
-    syy = S_yy/sig_amp;
-    sxy = S_xy/sig_amp;
-    exx = sxx;%(sxx-nu*syy);
-    eyy = syy;%(syy-nu*sxx);
-    exy =  sxy;
     p   = 0.5*(exx+eyy);
     r2  = ((exx-eyy)*(exx-eyy)+4*exy*exy)*0.25;
     r   = sqrt(r2);
