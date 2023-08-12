@@ -20,6 +20,13 @@ exx = (sxx-nu*syy);
 eyy = (syy-nu*sxx);
 exy =  sxy;
 
+%output exx
+fid = fopen('png/strain.txt','wt');
+fprintf(fid,'#x y exx eyy exy\n');                                                            
+fprintf(fid,'%e %e %e %e %e\n', transpose([ reshape(X,[],1) reshape(Y,[],1) reshape(exx,[],1) reshape(eyy,[],1) reshape(exy,[],1)]));
+fclose(fid);
+
+
 figure(1)
     contourf(X,Y,exx,zlevs);
     colormap(parula(256));
