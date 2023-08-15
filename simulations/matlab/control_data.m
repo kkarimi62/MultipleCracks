@@ -6,7 +6,7 @@ global n_c n_grid del_grid eps sig_amp n_d_min out_iter_max...
 n_c=2; %30;
 n_d_min=2;
 eps=1e-3;
-out_iter_max=2; %1;
+out_iter_max=1;
 inner_iter_max=200*n_d_min;
 % inner_iter_max=1;
 n_steps=5;
