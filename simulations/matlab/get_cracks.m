@@ -47,12 +47,12 @@ end
 % only two cracks in a *notched* geometry
 C(1).a=1000;
 C(1).R_c=[0 1e4 0];
-C(1).phi=phi1+pi/100.0;
+C(1).phi=phi1+0*pi/100.0;
 %C(2).a=1000; %500;
 %C(2).phi=phi2;
 %C(2).R_c=[2e4 1e4 0];
 C(2).a=1000;
-C(2).phi=phi1-pi/100.0;
+C(2).phi=phi1-0*pi/100.0;
 C(2).R_c=[0 1e4+0.1e4 0];
 % C(4).a=500;
 % C(4).phi=0;
