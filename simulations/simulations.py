@@ -31,7 +31,7 @@ if __name__ == '__main__':
     nNode	 = 1
     #
     jobname  = {
-                0:'modeOneNotch', #'hydrogenFree',
+                0:'branching',
                }[0]
     sourcePath = os.getcwd() +\
                 {	
@@ -51,7 +51,8 @@ if __name__ == '__main__':
     #
     SCRPT_DIR = os.getcwd()+{0:'/matlab/latest/23_6_17_10_disk',
                              1:'/matlab',
-                            }[1]
+                             2:'/matlab/8_17_23_branches_Mohammad'
+                            }[2]
     #
     SCRATCH = None
     OUT_PATH = '.'
@@ -61,6 +62,7 @@ if __name__ == '__main__':
     LmpScript = {   0:'in.PrepTemp0',
                     1j:'Multi_Cracks_23_6_11_8.m', #--- matlab script
                     2j:'Multi_Cracks_23_6_17_10.m',
+                    3j:'Multi_Cracks_23_6_28_23.m'
                 } 
     #
     def SetVariables():
@@ -68,13 +70,15 @@ if __name__ == '__main__':
                 0:' -var natoms 100000 -var cutoff 3.52 -var ParseData 0 -var ntype 3 -var DumpFile dumpInit.xyz -var WriteData data_init.txt',
                  1j:' ',
                  2j:' ',
+                 3j:' ',
                 } 
         return Variable
     #--- different scripts in a pipeline
     indices = {
                 0:[1j],
                 1:[2j],
-              }[ 0 ]
+                2:[3j],
+              }[ 2 ]
     Pipeline = list(map(lambda x:LmpScript[x],indices))
     EXEC = list(map(lambda x:np.array(['lmp','py','kmc','m'])[[ type(x) == type(0), type(x) == type(''), type(x) == type(1.0), type(x) == type(1j)]][0], indices))	
 #        print('EXEC=',EXEC)
